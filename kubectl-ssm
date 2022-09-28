@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+ssm_node() {
+###################################
+### Get Kubernetes Cluster Nodes###
+###################################
+  node=$1
+  if [ "$node" = "" ]; then
+    node=($(kubectl get nodes -A -o jsonpath='{range .items[*]}{.spec.providerID}{"\n"}{end}' | sed -re 's/aws:\/\/\///' | awk -F/ '{printf "\%s\n", $NF, $2}'))
+
+    for i in ${!node[@]}; do
+        echo "$i - ${node[$i]}"
+    done
+
+    read -p "Which Node you want to connect?: " node_name
+    
+    if [[ "$node_name" =~ " " ]]; then
+      echo "Node name must be specified. Choose one of: [$node_name]"
+      exit 1
+    else
+      echo "cluster node detected: $node_name"
+    fi
+  fi
+###################################
+### Connect to Node with ###
+###################################
+  echo "Connecting to node via kubectl-ssm..."
+  aws ssm start-session \
+  --target $node
+  
+}
+ssm_node
