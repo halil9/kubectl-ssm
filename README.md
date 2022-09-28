@@ -11,6 +11,6 @@
 
 for the usage, it is enough that you can just copy it to your executable file system.
 
-```chmod +x ./kubectl-ssm```
-```mv ./kubectl-ssm /usr/local/bin```
-```kubectl ssm``` // it will list all worker nodes in your cluster.
+```$ chmod +x ./kubectl-ssm```<br />
+```$ mv ./kubectl-ssm /usr/local/bin```<br />
+```$ kubectl ssm``` // it will list all worker nodes in your cluster.
