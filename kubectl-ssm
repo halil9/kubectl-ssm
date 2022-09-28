@@ -24,7 +24,7 @@ ssm_node() {
     fi
   fi
 ###################################
-### Connect to Node with ###
+### Connect to Node with AWS CLI###
 ###################################
   echo "Connecting to node via kubectl-ssm..."
   aws ssm start-session \
